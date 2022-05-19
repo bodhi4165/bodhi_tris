@@ -10,7 +10,8 @@
 
 #include "game.h"
 
-
+#define SERVER_MODE server
+#define CLIENT_MODE connect
 /**
  *
  */
@@ -34,5 +35,20 @@ int get_input_y(int p);
  */
 void play(tris match);
 
+
+/***************
+ * online game *
+ ***************/
+
+/**
+ *
+ */
+int init_server_mode (int argc, char* argv[]);
+
+
+/**
+ *
+ */
+int init_client_mode (int argc, char* argv[]);
 
 #endif /* SRC_TRIS_H_ */

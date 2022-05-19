@@ -3,6 +3,7 @@
 #ifndef SRC_PARTITA_H_
 #define SRC_PARTITA_H_
 
+#define ERR_NOT_VALID_INPUT -4
 #define ERR_NO_USER			-3
 #define ERR_NOT_VALID_MOVE	-2
 #define EMPTY				-1
@@ -63,7 +64,7 @@ int check_vertical (const tris* match, int player, int i, int j);
 /**
  *
  */
-int check_orizzontale (const tris* match, int player, int i, int j);
+int check_horizontal (const tris* match, int player, int i, int j);
 
 
 /**

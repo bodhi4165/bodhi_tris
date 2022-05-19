@@ -96,3 +96,11 @@ void gui_no_user_input() {
 void gui_welcome() {
 	printf("Hello! play tris!\n");
 }
+
+
+/*
+ *
+ */
+void gui_net_waiting_players() {
+	printf("waiting for other players...");
+}

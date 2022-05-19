@@ -47,4 +47,10 @@ void gui_no_user_input();
  */
 void gui_welcome();
 
+
+/**
+ *
+ */
+void gui_net_waiting_players();
+
 #endif /* SRC_CGUI_H_ */
