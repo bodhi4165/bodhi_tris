@@ -12,7 +12,7 @@
 /*
  *
  */
-int get_input_move() {
+int get_input_move(void) {
 	int move = EMPTY;
 	scanf("%d", &move);
 
@@ -93,7 +93,7 @@ void play (tris match) {
 			int x = get_input_x(pos);
 			int y = get_input_y(pos);
 
-			m = move(&match, player, x, y);
+			m = move_player(&match, player, x, y);
 		} while (m == ERR_NOT_VALID_MOVE);
 
 		if (m == NO_WINNER) {
@@ -113,8 +113,9 @@ void play (tris match) {
 /*
  *
  */
-int init_server_mode (int argc, char* argv[]) {
-	gui_welcome();
+int init_server_mode (tris match) {
+	gui_welcome(match.players_[0]);
+
 
 	int socket_desc , client_sock , c , read_size;
 	struct sockaddr_in server , client;
@@ -125,14 +126,21 @@ int init_server_mode (int argc, char* argv[]) {
 	if (socket_desc == -1) {
 		printf("Could not create socket");
 	}
+    
+    
+    //Accept and incoming connection
+    gui_net_waiting_players();
+    
 	puts("Socket created");
 
+    
 	//Prepare the sockaddr_in structure
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port = htons( 8888 );
+    
 
-	//Bind
+    //Bind
 	if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0) {
 		//print the error message
 		perror("bind failed. Error");
@@ -141,8 +149,7 @@ int init_server_mode (int argc, char* argv[]) {
 	//Listen
 	listen(socket_desc , 3);
 
-	//Accept and incoming connection
-	gui_net_waiting_players()
+	
 
 	c = sizeof(struct sockaddr_in);
 
@@ -154,9 +161,9 @@ int init_server_mode (int argc, char* argv[]) {
 	}
 
 	puts("Connection accepted");
-
+    char* client_message;
 	//Receive a message from client
-	while( (read_size = recv(client_sock , client_message , 2000 , 0)) > 0 ) {
+	while( (read_size = recv(client_sock, client_message, 2000, 0)) > 0 ) {
 		char* new_message = "ho capio, cambiemo un po";
 
 		//Send the message back to client
@@ -183,7 +190,8 @@ int init_server_mode (int argc, char* argv[]) {
  *
  */
 int init_client_mode (int argc, char* argv[]) {
-	gui_welcome();
+
+    gui_welcome();
 
 	int sock;
 	struct sockaddr_in server;
@@ -212,7 +220,7 @@ int init_client_mode (int argc, char* argv[]) {
 	//keep communicating with server
 	while(1) {
 
-		message = "";
+        strcpy(message,"");
 
 		printf("Enter message : ");
 		scanf("%s" , message);
@@ -251,30 +259,3 @@ int init_client_mode (int argc, char* argv[]) {
 }
 
 
-/*
- *
- */
-int main(int argc, char* argv[]) {
-
-	if (argc != 3) {
-		gui_no_user_input();
-		return ERR_NO_USER;
-	}
-
-	/* choose input type */
-	if (strcmp (argv[2], "server") == 0) {
-		return init_server_mode (argc, argv);
-	} else if (strcmp (argv[2], "connect") == 0) {
-		return init_client_mode(argc, argv);
-	} else {
-		return ERR_NOT_VALID_INPUT;
-	}
-
-
-
-	//gui_welcome();
-
-	//play(init(argv[1], argv[2]));
-
-	return 0;
-}

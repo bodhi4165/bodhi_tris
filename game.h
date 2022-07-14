@@ -28,7 +28,7 @@ typedef struct tris {
 /**
  *
  */
-tris init(char* user_1, char* user_2);
+tris init(char* server_player_name);
 
 
 /**
@@ -40,7 +40,7 @@ void set_username (tris match, char* user1, char* user2);
 /**
  *
  */
-int move (tris* match, int player, int i, int j);
+int move_player (tris* match, int player, int i, int j);
 
 
 /**

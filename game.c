@@ -4,9 +4,10 @@
 #include <string.h>
 
 /*
- *
+ * TODO -> da cambiare con un solo nome di giocatore
+        -> crea un metodo per definire il nome del secondo giocatore una volta connesso un cilent
  */
-tris init (char* user_1, char* user_2) {
+tris init (char* server_player_name) {
 	tris match;
 	int i, j;
 	for (i = 0; i < 3; i++) {
@@ -16,8 +17,8 @@ tris init (char* user_1, char* user_2) {
 	}
 	match.shift_number_ = 0;
 
-	strcpy(match.players_[0], user_1);
-	strcpy(match.players_[1], user_2);
+	strcpy(match.players_[0], server_player_name);
+    strcpy(match.players_[1], "no players");
 
 	return match;
 }
@@ -33,7 +34,7 @@ void set_username ( tris match, char* user_1, char* user_2 ) {
 /*
  *
  */
-int move ( tris* match, int player, int i,int j) {
+int move_player (tris* match, int player, int i, int j) {
 	if (check_move(match, i, j) != VALID_MOVE) {
 		return ERR_NOT_VALID_MOVE;
 	}

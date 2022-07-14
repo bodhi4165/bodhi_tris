@@ -86,15 +86,16 @@ void gui_err_not_valid_move () {
  *
  */
 void gui_no_user_input() {
-	printf("No user input. retry with \"./tris user1 user2\"\n");
+	printf("No user input. retry with \"./tris player_name connect\" for connect to server\n");
+    printf("                          \"./tris player_name server\" for host a game\n");
 }
 
 
 /*
  *
  */
-void gui_welcome() {
-	printf("Hello! play tris!\n");
+void gui_welcome(char* player_name) {
+	printf("Hello %s! Let's play tris!\n", player_name);
 }
 
 
@@ -104,3 +105,4 @@ void gui_welcome() {
 void gui_net_waiting_players() {
 	printf("waiting for other players...");
 }
+

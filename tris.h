@@ -15,7 +15,7 @@
 /**
  *
  */
-int get_input_move ();
+int get_input_move(void);
 
 
 /**
@@ -43,7 +43,7 @@ void play(tris match);
 /**
  *
  */
-int init_server_mode (int argc, char* argv[]);
+int init_server_mode (tris match);
 
 
 /**
